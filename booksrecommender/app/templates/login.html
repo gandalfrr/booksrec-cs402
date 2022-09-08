@@ -1,0 +1,66 @@
+{%extends "layout.html"%}
+{%block content%}
+       <section id="jumbo">        
+              <div class="container  ">
+
+                <br>
+                <p class="h1 mb-4">Login</p>
+                <form method="POST" action="" >
+                  {{form.hidden_tag()}}
+                    <div class="form-group">
+                      <fieldset >
+                      <div class='form-group'>
+                        {{form.email.label(class="form-control-label")}}
+                        {% if form.email.errors%}
+                        {{form.email(class="form-control is-invalid")}}
+                          <div class="invalid-feedback">
+                                  {%for error in form.email.errors%}
+                                  <span>{{error}}</span>
+                                  {%endfor%}
+                          </div>
+                          {%else%}
+                          {{form.email(class="form-control")}}
+
+                        {%endif%}
+
+                      </div>
+                      <div class='form-group'>
+
+                         {{form.password.label(class="form-control-label")}}
+                        {% if form.password.errors%}
+                        {{form.password(class="form-control is-invalid")}}
+                          <div class="invalid-feedback">
+                                  {%for error in form.password.errors%}
+                                  <span>{{error}}</span>
+                                  {%endfor%}
+                          </div>
+                          {%else%}
+                          {{form.password(class="form-control")}}
+
+                        {%endif%}  
+                        </div>
+                        
+                  </fieldset>
+                  <div class='form-group'>
+                      {{form.submit(class="btn btn-outline-info")}}
+                      
+                    </div>
+                  </form>
+                  <hr>
+                  <a href="{{url_for('index')}}" class="btn btn-info" role="button">Return home</a>
+
+
+                  
+              
+
+
+
+
+        </div>
+      </section>
+        <footer>
+           
+                <h6 class="text-center">&copy; 2022-2023 CS-402 </h6>
+        </footer>
+      
+        {%endblock content%}

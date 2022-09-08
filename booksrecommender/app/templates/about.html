@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  </head>
+  <body>
+    <div class='sidebar'>
+      <div class='logo-details'>
+          <i class='bx bxs-dashboard'></i> <!-- This is the logo-->
+          <span class="logo_name">Dashboard</span>
+      </div>
+      <ul class='nav-links'>
+        <li>
+          <a href="{{url_for("home")}}" class="active">
+              <i class='bx bxs-home'></i>
+              <span class="links_name">Home</span>
+          </a>
+          </li>
+        <li>
+          <a href="{{url_for("recommend")}}" class="active">
+            <i class='bx bxs-star'></i>
+              <span class="links_name">Recommend</span>
+          </a>
+          </li>
+          <li>
+              <a href="{{url_for('book')}}" class="active">
+                  <i class='bx bx-book' ></i>
+                  <span class="links_name">Books</span>
+              </a>
+          </li>
+          <li>
+            <a href="{{url_for('account')}}" class="active">
+                <i class='bx bxs-user'></i>
+                <span class="links_name">Account</span>
+            </a>
+          </li>
+          <li>
+              <a href="#" class="active">
+                  <i class='bx bx-info-circle' ></i>
+                  <span class="links_name">About</span>
+              </a>
+          </li>
+          <li>
+              <a id="logoutButton" href="{{url_for('logout')}}" class="active">
+                  <i class='bx bx-log-out' ></i>
+                  <span class="links_name">Logout</span>
+              </a>
+          </li>
+      </ul>
+      </div>
+      <div class="section">
+		<div class="container">
+			<div class="content-section">
+				<div class="title">
+					<h1>About Us</h1>
+				</div>
+				<div class="content">
+					<h3>This website is created in accordance to the submission of the partial fulfillment of the requirements for the degree of Bachelor of Science in Computer Science.</h3>
+					<p>If there are bugs found within the website, or any feedbacks, feel free to contact the researchers down below</p>
+                    <p>Datu, Allen Stephen | datuallenstephen@gmail.com</p>
+                    <p>Fernandez, Jonah | tontonfer@gmail.com</p>
+                    <p>Lugtu, Jonas Raphael | jonaslugtu45@gmail.com</p>
+                    <p>Pineda, Justine Gabriel | justinegabriel.pineda@gmail.com</p>
+				</div>
+			</div>
+			<div class="image-section">
+				<img src="../static/images/books.png">
+			</div>
+		</div>
+	</div>
+    </body>
+</html>
+           
+           

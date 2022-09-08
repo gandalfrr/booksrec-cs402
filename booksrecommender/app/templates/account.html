@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+    <link rel="styleseet" href="//fonts.googleapis.com/css?family=Raleway" />
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  </head>
+  <body>
+    <div class='sidebar'>
+      <div class='logo-details'>
+          <i class='bx bxs-dashboard'></i> <!-- This is the logo-->
+          <span class="logo_name">Dashboard</span>
+      </div>
+          <ul class='nav-links'>
+            <li>
+              <a href="{{url_for("home")}}" class="active">
+                  <i class='bx bxs-home'></i>
+                  <span class="links_name">Home</span>
+              </a>
+              </li>
+            <li>
+              <a href="{{url_for("recommend")}}" class="active">
+                  <i class='bx bxs-star'></i>
+                  <span class="links_name">Recommend</span>
+              </a>
+              </li>
+              <li>
+                  <a href="{{url_for('book')}}" class="active">
+                      <i class='bx bx-book' ></i>
+                      <span class="links_name">Books</span>
+                  </a>
+              </li>
+              <li>
+                <a href="{{url_for('account')}}" class="active">
+                    <i class='bx bxs-user'></i>
+                    <span class="links_name">Account</span>
+                </a>
+              </li>
+              <li>
+                  <a href="{{url_for('about')}}" class="active">
+                      <i class='bx bx-info-circle' ></i>
+                      <span class="links_name">About</span>
+                  </a>
+              </li>
+              <li>
+                  <a id="logoutButton" href="{{url_for('logout')}}" class="active">
+                      <i class='bx bx-log-out' ></i>
+                      <span class="links_name">Logout</span>
+                  </a>
+              </li>
+          </ul>
+      </div>
+    
+    {%with messages=get_flashed_messages(with_categories=true)%}
+    {%if messages%}
+         {%for category,message in messages%}
+         <div class=" mt-5">
+         <div class='alert alert-{{category}} role="alert"'>
+             {{message}}
+         </div>
+        </div>
+         {%endfor%}
+    {%endif%}
+    {%endwith%}
+ {%block content%}{%endblock%}
+        <section  id="profileSection">
+            <div class="container d-flex justify-content-center" id="profile">
+            <img src="/static/images/user.png" class="rounded mx-auto d-block" alt="Responsive image" style="color:blue;">
+        </div>
+        <br>
+        <h5 class="text-center"id="name">{{current_user.email}}</h5>
+
+        <!-- Button trigger modal -->
+        <div class="text-center my-5">
+<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">
+    Change Email
+      </button>
+    </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Change Email</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form method="POST" action="" >
+                            {{form.hidden_tag()}}
+                                <fieldset >
+                                <div class='form-group'>
+                                  {{form.email.label(class="form-control-label")}}
+                                  {% if form.email.errors%}
+                                  {{form.email(class="form-control is-invalid")}}
+                                    <div class="invalid-feedback">
+                                            {%for error in form.email.errors%}
+                                            <span>{{error}}</span>
+                                            {%endfor%}
+                                    </div>
+                                    {%else%}
+                                    {{form.email(class="form-control")}}
+          
+                                  {%endif%}
+          
+                                </div>
+                            
+                                  
+                            </fieldset>
+                            <div class='form-group'>
+                                    {{form.submit(class="btn btn-outline-info")}}
+
+                              </div>
+                            </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="container mt-5"id="value" style="padding: 50px 150px;" >
+
+        <h6 class="text-center">My rated books :</h6>
+        <table class="content-table" id="ratedtable">
+          <tbody>
+                <thead>
+                  <tr>
+                    <th data-field="book_id">Book Id</th>
+                    <th data-field="original_title">Title</th>
+                    <th data-field="genre">Genre</th>
+                    <th data-field="rating">My Rating</th>
+                  </tr>
+                </thead>
+            </tbody>
+          </table>
+        <h6 class="text-center mt-5">My Recommended books: </h6>
+        <table class="content-table" id="suggestedtable">
+            <tbody>
+                <thead>
+                  
+                  <tr>
+                    <th data-field="book_id">Book Id</th>
+                    <th data-field="original_title">Title</th>
+                    <th data-field="genre">Genre</th>
+                  </tr>
+                
+                </thead>
+            </tbody>
+          </table>
+            
+      </div>
+        <hr>
+        </section>
+       
+      
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> 
+       <!-- Latest compiled and minified JavaScript -->
+        <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+      
+        <script>
+            $( document ).ready(function() {
+            $('#exampleModal').on('shown.bs.modal', function () {
+             $('#myInput').trigger('focus')
+            })
+            console.log( "ready!" );
+
+            var $rated = $('#ratedtable')
+            var $suggested = $('#suggestedtable')
+
+        var c = {{suggested|tojson}}
+        var b= {{rated|tojson}}
+
+        
+        $(function() {
+  
+                $rated.bootstrapTable({data: b})
+                $suggested.bootstrapTable({data: c})
+            })
+        
+      
+                });
+        </script>
+         
+    </body>
+</html>
+       
+       
+       

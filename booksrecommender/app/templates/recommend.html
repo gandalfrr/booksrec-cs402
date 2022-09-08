@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  </head>
+  <body>
+      <div class='sidebar'>
+        <div class='logo-details'>
+            <i class='bx bxs-dashboard'></i> <!-- This is the logo-->
+            <span class="logo_name">Dashboard</span>
+        </div>
+        <ul class='nav-links'>
+          <li>
+            <a href="{{url_for("home")}}" class="active">
+                <i class='bx bxs-home'></i>
+                <span class="links_name">Home</span>
+            </a>
+            </li>
+          <li>
+            <a href="{{url_for("recommend")}}" class="active">
+              <i class='bx bxs-star'></i>
+                <span class="links_name">Recommend</span>
+            </a>
+            </li>
+            <li>
+                <a href="{{url_for('book')}}" class="active">
+                    <i class='bx bx-book' ></i>
+                    <span class="links_name">Books</span>
+                </a>
+            </li>
+            <li>
+              <a href="{{url_for('account')}}" class="active">
+                  <i class='bx bxs-user'></i>
+                  <span class="links_name">Account</span>
+              </a>
+            </li>
+            <li>
+                <a href="{{url_for('about')}}" class="active">
+                    <i class='bx bx-info-circle' ></i>
+                    <span class="links_name">About</span>
+                </a>
+            </li>
+            <li>
+                <a id="logoutButton" href="{{url_for('logout')}}" class="active">
+                    <i class='bx bx-log-out' ></i>
+                    <span class="links_name">Logout</span>
+                </a>
+            </li>
+        </ul>
+        </div>
+        
+    <div class="container" style="padding: 50px 150px;">
+        {%with messages=get_flashed_messages(with_categories=true)%}
+        {%if messages%}
+             {%for category,message in messages%}
+             <div class='alert alert-{{category}} role="alert"'>
+                 {{message}}
+             </div>
+             {%endfor%}
+        {%endif%}
+        {%endwith%}
+     {%block content%}{%endblock%}
+        
+        <form method="POST" action="" >
+            {{form.hidden_tag()}}
+              <div class="form-group">
+                <fieldset >
+                <div class='form-group'>
+                  {{form.book_id.label(class="form-control-label")}}
+                  {% if form.book_id.errors%}
+                  {{form.book_id(class="form-control is-invalid")}}
+                    <div class="invalid-feedback">
+                            {%for error in form.book_id.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                    </div>
+                    {%else%}
+                    {{form.book_id(class="form-control")}}
+  
+                  {%endif%}
+  
+                </div>
+                <div class='form-group'>
+  
+                   {{form.rating.label(class="form-control-label")}}
+                  {% if form.rating.errors%}
+                  {{form.rating(class="form-control is-invalid")}}
+                    <div class="invalid-feedback">
+                            {%for error in form.rating.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                    </div>
+                    {%else%}
+                    {{form.rating(class="form-control")}}
+  
+                  {%endif%}  
+                  </div>
+            </fieldset>
+            <div class='form-group'>
+              {{form.submit(class="btn btn-outline-info")}}
+
+            </div>
+          </form>
+        </div>
+    </body>
+</html>
+
+       
